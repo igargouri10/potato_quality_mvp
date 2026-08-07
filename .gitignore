@@ -1,0 +1,13 @@
+.venv/
+venv/
+__pycache__/
+.pytest_cache/
+.streamlit/
+
+# Keep confidential company data local.
+data/raw/
+data/processed/
+*.xlsx
+*.xls
+*.csv
+*.pdf
