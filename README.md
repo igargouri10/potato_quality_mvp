@@ -155,3 +155,9 @@ After the matching pipeline is reliable across several PDFs and QC exports:
 - Train a lightweight image classifier such as MobileNet, ResNet, or EfficientNet
 - Combine image features with tabular fields
 - Keep leakage-prone QC outcome columns as labels or evaluation targets, not predictive inputs
+
+## Local recording workflow (October 2026)
+
+A recording workflow has been prepared in the parent workspace's `DEMO_GUIDE.md`.
+These are bounded demonstrations, not a claim that every experimental workflow has been reproduced.
+Keep AI-assisted implementation attribution and the documented limitations in public descriptions.

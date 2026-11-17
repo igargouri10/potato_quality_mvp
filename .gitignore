@@ -11,3 +11,6 @@ data/processed/
 *.xls
 *.csv
 *.pdf
+
+.pytest-tmp-demo/
+demo_data/

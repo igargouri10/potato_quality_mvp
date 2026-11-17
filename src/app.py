@@ -58,18 +58,27 @@ def _show_status(status: str) -> None:
 
 def _single_report_workflow() -> None:
     st.header("Upload Files")
+    demo = st.checkbox("Use synthetic demo files (no company data)")
     left, right = st.columns(2)
     with left:
         report_file = st.file_uploader("Defect PDF report", type=["pdf"])
     with right:
         qc_file = st.file_uploader("QC Excel or CSV file", type=["csv", "xlsx", "xls"])
 
-    if not report_file or not qc_file:
+    if demo:
+        from scripts.create_demo_data import generate
+        demo_dir = generate()
+        batch = st.selectbox("Synthetic batch", ["1042", "1043", "1044"])
+        st.caption("Synthetic records. These rules are illustrative, not a trained classifier or validated industry standard.")
+        report_path = demo_dir / f"batch_{batch}.pdf"
+        qc_file = demo_dir / "synthetic_qc.csv"
+    elif not report_file or not qc_file:
         st.info("Upload a PDF report and a QC file to run the matching workflow.")
         return
 
     with st.spinner("Extracting report data and matching QC record..."):
-        report_path = _save_upload(report_file, ".pdf")
+        if not demo:
+            report_path = _save_upload(report_file, ".pdf")
         metadata = extract_pdf_report(report_path, EXTRACTED_IMAGE_DIR)
         qc_df = load_qc_data(qc_file)
         match = match_qc_record(metadata, qc_df)
